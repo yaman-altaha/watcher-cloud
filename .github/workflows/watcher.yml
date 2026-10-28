@@ -1,0 +1,87 @@
+name: Liège Watcher Cloud
+
+on:
+  schedule:
+    - cron: "2-57/5 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: liege-nationality-watcher-cloud
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Cache Playwright browser
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-1.55.0
+
+      - name: Install packages
+        run: npm install --no-audit --no-fund
+
+      - name: Install Chromium dependencies
+        run: npx playwright install --with-deps chromium
+
+      - name: Run tests
+        run: npm test
+
+      - name: Scan official Liège calendar
+        id: scan
+        continue-on-error: true
+        env:
+          URGENT_END_DATE: "2027-01-31"
+          HORIZON_MONTHS: "24"
+          MAX_RETRIES: "3"
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          NTFY_BASE_URL: ${{ secrets.NTFY_BASE_URL }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+        run: node src/run-watcher.mjs
+
+      - name: Persist watcher state
+        if: always()
+        run: |
+          if git diff --quiet -- docs/state.json; then
+            echo "No persistent state change — nothing to commit."
+            exit 0
+          fi
+          git config user.name "liege-watcher-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add docs/state.json
+          git commit -m "Update watcher state [skip ci]"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+
+      - name: Upload failure screenshot
+        if: steps.scan.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: liege-watcher-failure-${{ github.run_id }}
+          path: watcher-failure.png
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Mark run failed when scanner failed
+        if: steps.scan.outcome == 'failure'
+        run: exit 1
