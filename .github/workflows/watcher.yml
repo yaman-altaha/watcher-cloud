@@ -4,6 +4,12 @@ on:
   schedule:
     - cron: "2-57/5 * * * *"
   workflow_dispatch:
+    inputs:
+      test_notification:
+        description: "Send a one-time ntfy test notification"
+        required: false
+        default: false
+        type: boolean
 
 concurrency:
   group: liege-nationality-watcher-cloud
@@ -41,6 +47,13 @@ jobs:
 
       - name: Run tests
         run: npm test
+
+      - name: Send ntfy test notification
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.test_notification }}
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          NTFY_BASE_URL: ${{ secrets.NTFY_BASE_URL }}
+        run: node src/test-notification.mjs
 
       - name: Scan official Liège calendar
         id: scan
