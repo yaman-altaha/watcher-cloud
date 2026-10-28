@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 3,
+  "urgentEndDate": "2027-01-31",
+  "availabilityFingerprint": null,
+  "lastEarliestDateKey": null,
+  "lastEarliestLabel": null,
+  "lastEarliestTime": null,
+  "activeTargetDateKeys": [],
+  "slots": [],
+  "dates": [],
+  "monthsScanned": 0,
+  "consecutiveFailures": 0,
+  "lastError": null,
+  "lastAvailabilityChangeAt": null,
+  "heartbeatMonth": null,
+  "monthlyHeartbeatAt": null
+}
