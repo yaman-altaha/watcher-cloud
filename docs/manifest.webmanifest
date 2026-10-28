@@ -1,0 +1,8 @@
+{
+  "name": "Liège Nationality Watcher",
+  "short_name": "Liège Watcher",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f5f7fb",
+  "theme_color": "#111827"
+}
