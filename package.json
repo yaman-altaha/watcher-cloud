@@ -1,0 +1,16 @@
+{
+  "name": "liege-nationality-watcher-cloud",
+  "version": "3.0.0",
+  "private": true,
+  "type": "module",
+  "description": "24/7 cloud backup watcher for Ville de Liège nationality appointments.",
+  "scripts": {
+    "watch": "node src/run-watcher.mjs",
+    "test": "node --test test/*.test.mjs",
+    "check": "node --check src/run-watcher.mjs && node --check src/logic.mjs && node --check src/notify.mjs"
+  },
+  "dependencies": {
+    "nodemailer": "7.0.6",
+    "playwright": "1.55.0"
+  }
+}
