@@ -1,17 +1,47 @@
 {
   "schemaVersion": 3,
   "urgentEndDate": "2027-01-31",
-  "availabilityFingerprint": null,
-  "lastEarliestDateKey": null,
-  "lastEarliestLabel": null,
-  "lastEarliestTime": null,
+  "availabilityFingerprint": "{\"s\":[\"2027-03-24|09:00-10:00|09:00-10:00|24 mars 2027 — 09:00-10:00\",\"2027-03-24|11:00-12:00|11:00-12:00|24 mars 2027 — 11:00-12:00\",\"2027-03-24|14:00-15:00|14:00-15:00|24 mars 2027 — 14:00-15:00\",\"2027-03-24|15:00-16:00|15:00-16:00|24 mars 2027 — 15:00-16:00\"],\"d\":[\"2027-03-24|24 mars 2027\"]}",
+  "lastEarliestDateKey": "2027-03-24",
+  "lastEarliestLabel": "24 mars 2027",
+  "lastEarliestTime": "09:00-10:00",
   "activeTargetDateKeys": [],
-  "slots": [],
-  "dates": [],
-  "monthsScanned": 0,
+  "slots": [
+    {
+      "key": "2027-03-24|09:00-10:00",
+      "date": "24 mars 2027",
+      "time": "09:00-10:00",
+      "label": "24 mars 2027 — 09:00-10:00"
+    },
+    {
+      "key": "2027-03-24|11:00-12:00",
+      "date": "24 mars 2027",
+      "time": "11:00-12:00",
+      "label": "24 mars 2027 — 11:00-12:00"
+    },
+    {
+      "key": "2027-03-24|14:00-15:00",
+      "date": "24 mars 2027",
+      "time": "14:00-15:00",
+      "label": "24 mars 2027 — 14:00-15:00"
+    },
+    {
+      "key": "2027-03-24|15:00-16:00",
+      "date": "24 mars 2027",
+      "time": "15:00-16:00",
+      "label": "24 mars 2027 — 15:00-16:00"
+    }
+  ],
+  "dates": [
+    {
+      "key": "2027-03-24",
+      "label": "24 mars 2027"
+    }
+  ],
+  "monthsScanned": 6,
   "consecutiveFailures": 0,
   "lastError": null,
-  "lastAvailabilityChangeAt": null,
-  "heartbeatMonth": null,
-  "monthlyHeartbeatAt": null
+  "lastAvailabilityChangeAt": "2026-10-28T14:51:53.869Z",
+  "heartbeatMonth": "2026-10",
+  "monthlyHeartbeatAt": "2026-10-28T14:51:53.869Z"
 }
