@@ -356,6 +356,7 @@ async function main() {
       urgentEndDate:URGENT_END_DATE,
       consecutiveFailures:failures,
       lastError:String(lastError || "Unknown scan error"),
+      lastAttemptAt:nowIso(),
       heartbeatMonth: previous.heartbeatMonth || monthKeyBrussels()
     };
 
@@ -423,6 +424,8 @@ async function main() {
     monthsScanned:result.monthsScanned,
     consecutiveFailures:0,
     lastError:null,
+    lastAttemptAt:nowIso(),
+    lastSuccessfulScanAt:nowIso(),
     heartbeatMonth:monthKeyBrussels()
   };
 
