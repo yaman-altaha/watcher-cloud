@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#111827">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Liège Watcher">
+  <link rel="manifest" href="manifest.webmanifest">
+  <title>Liège Nationality Watcher</title>
+  <style>
+    :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    *{box-sizing:border-box} body{margin:0;background:#f5f7fb;color:#111827}
+    .wrap{max-width:820px;margin:0 auto;padding:18px 14px 40px}
+    h1{font-size:24px;margin:4px 0}.sub{color:#6b7280;font-size:14px;margin-bottom:16px}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .card{background:#fff;border:1px solid #e5e7eb;border-radius:18px;padding:16px;box-shadow:0 3px 14px rgba(17,24,39,.05)}
+    .wide{grid-column:1/-1}.label{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:#6b7280;font-weight:700}
+    .value{margin-top:6px;font-size:18px;font-weight:750}.earliest{border:2px solid #ef4444;background:#fff7f7}
+    .earliest .value{color:#b91c1c;font-size:24px}.health{display:inline-flex;align-items:center;gap:8px;padding:7px 10px;border-radius:999px;font-weight:700;font-size:13px}
+    .ok{background:#dcfce7;color:#166534}.warn{background:#fef3c7;color:#92400e}.bad{background:#fee2e2;color:#991b1b}
+    .dot{width:9px;height:9px;border-radius:50%;background:currentColor}.slots{margin-top:10px;display:grid;gap:8px}
+    .slot{display:flex;justify-content:space-between;gap:12px;padding:11px 12px;border-radius:12px;background:#f9fafb;border:1px solid #eef0f3}
+    .slot.target{background:#fff1f2;border-color:#fecdd3}.time{font-weight:700;white-space:nowrap}.muted{color:#6b7280;font-size:13px}
+    .btn{display:inline-flex;text-decoration:none;background:#111827;color:#fff;border-radius:13px;padding:12px 15px;font-weight:750;margin-top:12px}
+    .row{display:flex;justify-content:space-between;gap:12px;align-items:center}.tiny{font-size:12px;color:#9ca3af;margin-top:14px}
+    @media(max-width:600px){.grid{grid-template-columns:1fr}.wide{grid-column:auto}.slot{flex-direction:column;gap:3px}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Liège Nationality Watcher</h1>
+  <div class="sub">24/7 cloud status · refreshes automatically</div>
+  <div class="grid">
+    <div class="card wide earliest">
+      <div class="label">Earliest appointment</div>
+      <div id="earliest" class="value">Loading…</div>
+      <div id="targetHint" class="muted"></div>
+      <a class="btn" href="https://rendez-vous.liege.be/nationalites" target="_blank" rel="noopener">Open official booking page</a>
+    </div>
+    <div class="card">
+      <div class="label">Cloud health</div>
+      <div style="margin-top:8px"><span id="health" class="health warn"><span class="dot"></span>Loading…</span></div>
+      <div id="lastRun" class="muted" style="margin-top:10px">—</div>
+    </div>
+    <div class="card">
+      <div class="label">Urgent window</div>
+      <div id="urgentWindow" class="value">—</div>
+      <div id="targetCount" class="muted">—</div>
+    </div>
+    <div class="card wide">
+      <div class="row"><div class="label">All detected appointments</div><div id="count" class="muted">—</div></div>
+      <div id="slots" class="slots"><div class="muted">Loading…</div></div>
+    </div>
+    <div class="card wide">
+      <div class="label">Technical status</div>
+      <div id="technical" class="muted" style="margin-top:8px;line-height:1.6">Loading…</div>
+    </div>
+  </div>
+  <div class="tiny">No personal data is stored on this dashboard. Appointment data comes from the latest cloud scan of the official Ville de Liège booking calendar.</div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const fmt=iso=>iso?new Date(iso).toLocaleString([], {dateStyle:'medium',timeStyle:'short'}):'—';
+function repoInfo(){const p=location.pathname.split('/').filter(Boolean);return {owner:location.hostname.split('.')[0],repo:p[0]}}
+function renderSlots(state){
+  const slots=Array.isArray(state.slots)?state.slots:[],target=new Set(state.activeTargetDateKeys||[]);
+  $('count').textContent=`${slots.length} slot${slots.length===1?'':'s'}`; $('slots').innerHTML='';
+  if(!slots.length){$('slots').innerHTML='<div class="muted">No appointment detected in the latest known availability state.</div>';return}
+  for(const s of slots){const key=String(s.key||'').slice(0,10),row=document.createElement('div');row.className='slot'+(target.has(key)?' target':'');
+    const d=document.createElement('div');d.textContent=s.date||s.label||key;const t=document.createElement('div');t.className='time';t.textContent=s.time||'Date available';row.append(d,t);$('slots').appendChild(row)}
+}
+async function latestCloudRun(owner,repo){
+  const r=await fetch(`https://api.github.com/repos/${owner}/${repo}/actions/runs?status=completed&per_page=12&_=${Date.now()}`,{headers:{Accept:'application/vnd.github+json'},cache:'no-store'});
+  if(!r.ok)return null;const d=await r.json();return(d.workflow_runs||[]).find(x=>x.name==='Liège Watcher Cloud')||null
+}
+async function refresh(){
+  try{
+    const sr=await fetch(`state.json?_=${Date.now()}`,{cache:'no-store'}),state=await sr.json(),{owner,repo}=repoInfo(),run=await latestCloudRun(owner,repo);
+    $('earliest').textContent=state.lastEarliestLabel?`${state.lastEarliestLabel}${state.lastEarliestTime?' — '+state.lastEarliestTime:''}`:'No appointment currently detected';
+    $('urgentWindow').textContent=`Until ${state.urgentEndDate||'2027-01-31'}`;
+    $('targetCount').textContent=`${(state.activeTargetDateKeys||[]).length} target-window date(s) currently detected`;
+    $('targetHint').textContent=(state.activeTargetDateKeys||[]).length?'🚨 A date inside your urgent window is currently available.':'No date inside your urgent window is currently detected.';
+    renderSlots(state);
+    let hc='warn',ht='Cloud status unavailable',rt='No workflow run found';
+    if(run){const age=(Date.now()-new Date(run.updated_at||run.created_at).getTime())/60000;rt=`Last completed cloud scan: ${fmt(run.updated_at||run.created_at)} (${run.conclusion||'unknown'})`;
+      if(run.conclusion==='success'&&age<=12&&Number(state.consecutiveFailures||0)===0){hc='ok';ht='Healthy — cloud watcher is active'}
+      else if(run.conclusion==='success'&&age<=30){hc='warn';ht='Active, but last scan is older than expected'}
+      else{hc='bad';ht='Attention — cloud scans need checking'}}
+    if(Number(state.consecutiveFailures||0)>=3){hc='bad';ht='Attention — three consecutive scans failed'}
+    const h=$('health');h.className=`health ${hc}`;h.innerHTML=`<span class="dot"></span>${ht}`; $('lastRun').textContent=rt;
+    $('technical').innerHTML=[`Availability last changed: <b>${fmt(state.lastAvailabilityChangeAt)}</b>`,`Months scanned: <b>${state.monthsScanned||'—'}</b>`,`Consecutive failures: <b>${state.consecutiveFailures||0}</b>`,state.lastError?`Last error: <b>${String(state.lastError).replaceAll('<','&lt;')}</b>`:'Last error: <b>none</b>',`Repository: <b>${owner}/${repo}</b>`].join('<br>');
+  }catch(e){const h=$('health');h.className='health bad';h.innerHTML='<span class="dot"></span>Dashboard could not refresh';$('technical').textContent=String(e)}
+}
+refresh();setInterval(refresh,90000);
+</script>
+</body>
+</html>
