@@ -10,6 +10,11 @@ on:
         required: false
         default: false
         type: boolean
+      test_email:
+        description: "Send a one-time email test"
+        required: false
+        default: false
+        type: boolean
 
 concurrency:
   group: liege-nationality-watcher-cloud
@@ -54,6 +59,17 @@ jobs:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
           NTFY_BASE_URL: ${{ secrets.NTFY_BASE_URL }}
         run: node src/test-notification.mjs
+
+      - name: Send email test
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.test_email }}
+        env:
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+        run: node src/test-email.mjs
 
       - name: Scan official Liège calendar
         id: scan
