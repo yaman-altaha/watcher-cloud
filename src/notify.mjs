@@ -2,6 +2,13 @@ import nodemailer from "nodemailer";
 
 const TARGET = "https://rendez-vous.liege.be/nationalites";
 
+function safeHeaderText(value) {
+  return String(value || "")
+    .replace(/[^\x20-\x7E]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 export async function sendNtfy(title, message, {priority = 5} = {}) {
   const topic = String(process.env.NTFY_TOPIC || "").trim();
   if (!topic) return {ok:false, skipped:true, reason:"NTFY_TOPIC is not configured"};
@@ -10,7 +17,7 @@ export async function sendNtfy(title, message, {priority = 5} = {}) {
   const response = await fetch(`${base}/${encodeURIComponent(topic)}`, {
     method: "POST",
     headers: {
-      "Title": title,
+      "Title": safeHeaderText(title) || "Liege appointment update",
       "Priority": String(priority),
       "Tags": "calendar,rotating_light",
       "Click": TARGET,
