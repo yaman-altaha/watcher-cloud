@@ -70,29 +70,32 @@ function renderSlots(state){
   for(const s of slots){const key=String(s.key||'').slice(0,10),row=document.createElement('div');row.className='slot'+(target.has(key)?' target':'');
     const d=document.createElement('div');d.textContent=s.date||s.label||key;const t=document.createElement('div');t.className='time';t.textContent=s.time||'Date available';row.append(d,t);$('slots').appendChild(row)}
 }
-async function latestCloudRun(owner,repo){
-  const r=await fetch(`https://api.github.com/repos/${owner}/${repo}/actions/runs?status=completed&per_page=12&_=${Date.now()}`,{headers:{Accept:'application/vnd.github+json'},cache:'no-store'});
-  if(!r.ok)return null;const d=await r.json();return(d.workflow_runs||[]).find(x=>x.name==='Liège Watcher Cloud')||null
+async function fetchLiveState(owner,repo){
+  const url=`https://raw.githubusercontent.com/${owner}/${repo}/main/docs/state.json?_=${Date.now()}`;
+  const r=await fetch(url,{cache:'no-store'});
+  if(!r.ok)throw new Error(`State HTTP ${r.status}`);
+  return await r.json();
 }
 async function refresh(){
   try{
-    const sr=await fetch(`state.json?_=${Date.now()}`,{cache:'no-store'}),state=await sr.json(),{owner,repo}=repoInfo(),run=await latestCloudRun(owner,repo);
+    const {owner,repo}=repoInfo(),state=await fetchLiveState(owner,repo);
     $('earliest').textContent=state.lastEarliestLabel?`${state.lastEarliestLabel}${state.lastEarliestTime?' — '+state.lastEarliestTime:''}`:'No appointment currently detected';
     $('urgentWindow').textContent=`Until ${state.urgentEndDate||'2027-01-31'}`;
     $('targetCount').textContent=`${(state.activeTargetDateKeys||[]).length} target-window date(s) currently detected`;
     $('targetHint').textContent=(state.activeTargetDateKeys||[]).length?'🚨 A date inside your urgent window is currently available.':'No date inside your urgent window is currently detected.';
     renderSlots(state);
-    let hc='warn',ht='Cloud status unavailable',rt='No workflow run found';
-    if(run){const age=(Date.now()-new Date(run.updated_at||run.created_at).getTime())/60000;rt=`Last completed cloud scan: ${fmt(run.updated_at||run.created_at)} (${run.conclusion||'unknown'})`;
-      if(run.conclusion==='success'&&age<=12&&Number(state.consecutiveFailures||0)===0){hc='ok';ht='Healthy — cloud watcher is active'}
-      else if(run.conclusion==='success'&&age<=30){hc='warn';ht='Active, but last scan is older than expected'}
-      else{hc='bad';ht='Attention — cloud scans need checking'}}
+    const stamp=state.lastSuccessfulScanAt||state.lastAvailabilityChangeAt||state.lastAttemptAt||null;
+    const age=stamp?(Date.now()-new Date(stamp).getTime())/60000:Infinity;
+    let hc='warn',ht='Waiting for first cloud scan',rt=stamp?`Last successful cloud scan: ${fmt(stamp)}`:'No successful cloud scan recorded yet';
+    if(stamp&&age<=12&&Number(state.consecutiveFailures||0)===0){hc='ok';ht='Healthy — cloud watcher is active'}
+    else if(stamp&&age<=30&&Number(state.consecutiveFailures||0)<3){hc='warn';ht='Active, but last successful scan is older than expected'}
+    else if(stamp){hc='bad';ht='Attention — cloud scans need checking'}
     if(Number(state.consecutiveFailures||0)>=3){hc='bad';ht='Attention — three consecutive scans failed'}
     const h=$('health');h.className=`health ${hc}`;h.innerHTML=`<span class="dot"></span>${ht}`; $('lastRun').textContent=rt;
-    $('technical').innerHTML=[`Availability last changed: <b>${fmt(state.lastAvailabilityChangeAt)}</b>`,`Months scanned: <b>${state.monthsScanned||'—'}</b>`,`Consecutive failures: <b>${state.consecutiveFailures||0}</b>`,state.lastError?`Last error: <b>${String(state.lastError).replaceAll('<','&lt;')}</b>`:'Last error: <b>none</b>',`Repository: <b>${owner}/${repo}</b>`].join('<br>');
+    $('technical').innerHTML=[`Availability last changed: <b>${fmt(state.lastAvailabilityChangeAt)}</b>`,`Last scan attempt: <b>${fmt(state.lastAttemptAt)}</b>`,`Months scanned: <b>${state.monthsScanned||'—'}</b>`,`Consecutive failures: <b>${state.consecutiveFailures||0}</b>`,state.lastError?`Last error: <b>${String(state.lastError).replaceAll('<','&lt;')}</b>`:'Last error: <b>none</b>',`Repository: <b>${owner}/${repo}</b>`].join('<br>');
   }catch(e){const h=$('health');h.className='health bad';h.innerHTML='<span class="dot"></span>Dashboard could not refresh';$('technical').textContent=String(e)}
 }
-refresh();setInterval(refresh,90000);
+refresh();setInterval(refresh,60000);
 </script>
 </body>
 </html>
