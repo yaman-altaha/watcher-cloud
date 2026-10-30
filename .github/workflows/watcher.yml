@@ -18,7 +18,7 @@ on:
 
 concurrency:
   group: liege-nationality-watcher-cloud
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 permissions:
   contents: write
