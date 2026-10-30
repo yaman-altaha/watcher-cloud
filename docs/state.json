@@ -8,12 +8,12 @@
   "activeTargetDateKeys": [],
   "slots": [],
   "dates": [],
-  "monthsScanned": 6,
+  "monthsScanned": 5,
   "consecutiveFailures": 0,
   "lastError": null,
   "lastAvailabilityChangeAt": "2026-10-29T19:29:22.419Z",
   "heartbeatMonth": "2026-10",
   "monthlyHeartbeatAt": "2026-10-28T14:51:53.869Z",
-  "lastAttemptAt": "2026-10-30T22:56:44.721Z",
-  "lastSuccessfulScanAt": "2026-10-30T22:56:44.721Z"
+  "lastAttemptAt": "2026-10-30T23:01:22.101Z",
+  "lastSuccessfulScanAt": "2026-10-30T23:01:22.101Z"
 }
