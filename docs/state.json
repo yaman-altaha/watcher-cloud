@@ -9,11 +9,11 @@
   "slots": [],
   "dates": [],
   "monthsScanned": 5,
-  "consecutiveFailures": 1,
-  "lastError": "TimeoutError: page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://rendez-vous.liege.be/nationalites\", waiting until \"domcontentloaded\"\n",
+  "consecutiveFailures": 0,
+  "lastError": null,
   "lastAvailabilityChangeAt": "2026-10-29T19:29:22.419Z",
   "heartbeatMonth": "2026-10",
   "monthlyHeartbeatAt": "2026-10-28T14:51:53.869Z",
-  "lastAttemptAt": "2026-10-31T13:29:23.953Z",
-  "lastSuccessfulScanAt": "2026-10-31T13:21:19.213Z"
+  "lastAttemptAt": "2026-10-31T13:31:15.436Z",
+  "lastSuccessfulScanAt": "2026-10-31T13:31:15.436Z"
 }
