@@ -1,7 +1,7 @@
 {
   "schemaVersion": 3,
   "urgentEndDate": "2027-01-31",
-  "availabilityFingerprint": "{\"s\":[\"2027-03-30|09:00-10:00|09:00-10:00|30 mars 2027 — 09:00-10:00\",\"2027-03-30|10:00-11:00|10:00-11:00|30 mars 2027 — 10:00-11:00\",\"2027-03-30|11:00-12:00|11:00-12:00|30 mars 2027 — 11:00-12:00\"],\"d\":[\"2027-03-30|30 mars 2027\"]}",
+  "availabilityFingerprint": "{\"s\":[\"2027-03-30|09:00-10:00|09:00-10:00|30 mars 2027 — 09:00-10:00\",\"2027-03-30|10:00-11:00|10:00-11:00|30 mars 2027 — 10:00-11:00\"],\"d\":[\"2027-03-30|30 mars 2027\"]}",
   "lastEarliestDateKey": "2027-03-30",
   "lastEarliestLabel": "30 mars 2027",
   "lastEarliestTime": "09:00-10:00",
@@ -18,12 +18,6 @@
       "date": "30 mars 2027",
       "time": "10:00-11:00",
       "label": "30 mars 2027 — 10:00-11:00"
-    },
-    {
-      "key": "2027-03-30|11:00-12:00",
-      "date": "30 mars 2027",
-      "time": "11:00-12:00",
-      "label": "30 mars 2027 — 11:00-12:00"
     }
   ],
   "dates": [
@@ -35,9 +29,9 @@
   "monthsScanned": 5,
   "consecutiveFailures": 0,
   "lastError": null,
-  "lastAvailabilityChangeAt": "2026-11-01T20:16:12.749Z",
+  "lastAvailabilityChangeAt": "2026-11-01T20:51:16.816Z",
   "heartbeatMonth": "2026-11",
   "monthlyHeartbeatAt": "2026-10-31T23:01:17.592Z",
-  "lastAttemptAt": "2026-11-01T20:46:34.277Z",
-  "lastSuccessfulScanAt": "2026-11-01T20:46:34.278Z"
+  "lastAttemptAt": "2026-11-01T20:51:16.815Z",
+  "lastSuccessfulScanAt": "2026-11-01T20:51:16.815Z"
 }
