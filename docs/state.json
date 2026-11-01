@@ -57,11 +57,11 @@
     }
   ],
   "monthsScanned": 5,
-  "consecutiveFailures": 0,
-  "lastError": null,
+  "consecutiveFailures": 1,
+  "lastError": "TimeoutError: page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://rendez-vous.liege.be/nationalites\", waiting until \"domcontentloaded\"\n",
   "lastAvailabilityChangeAt": "2026-10-31T23:06:14.559Z",
   "heartbeatMonth": "2026-11",
   "monthlyHeartbeatAt": "2026-10-31T23:01:17.592Z",
-  "lastAttemptAt": "2026-11-01T07:16:11.637Z",
+  "lastAttemptAt": "2026-11-01T07:24:18.485Z",
   "lastSuccessfulScanAt": "2026-11-01T07:16:11.638Z"
 }
