@@ -26,12 +26,12 @@
       "label": "30 mars 2027"
     }
   ],
-  "monthsScanned": 5,
+  "monthsScanned": 6,
   "consecutiveFailures": 0,
   "lastError": null,
   "lastAvailabilityChangeAt": "2026-11-01T20:51:16.816Z",
   "heartbeatMonth": "2026-11",
   "monthlyHeartbeatAt": "2026-10-31T23:01:17.592Z",
-  "lastAttemptAt": "2026-11-01T22:56:12.879Z",
-  "lastSuccessfulScanAt": "2026-11-01T22:56:12.879Z"
+  "lastAttemptAt": "2026-11-01T23:01:12.299Z",
+  "lastSuccessfulScanAt": "2026-11-01T23:01:12.299Z"
 }
