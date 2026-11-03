@@ -1,31 +1,19 @@
 {
   "schemaVersion": 3,
   "urgentEndDate": "2027-01-31",
-  "availabilityFingerprint": "{\"s\":[\"2026-11-04|13:00-14:00|13:00-14:00|4 novembre 2026 — 13:00-14:00\",\"2026-11-04|14:00-15:00|14:00-15:00|4 novembre 2026 — 14:00-15:00\",\"2027-03-31|13:00-14:00|13:00-14:00|31 mars 2027 — 13:00-14:00\",\"2027-03-31|14:00-15:00|14:00-15:00|31 mars 2027 — 14:00-15:00\"],\"d\":[\"2026-11-04|4 novembre 2026\",\"2027-03-31|31 mars 2027\"]}",
+  "availabilityFingerprint": "{\"s\":[\"2026-11-04|14:00-15:00|14:00-15:00|4 novembre 2026 — 14:00-15:00\",\"2027-03-31|14:00-15:00|14:00-15:00|31 mars 2027 — 14:00-15:00\"],\"d\":[\"2026-11-04|4 novembre 2026\",\"2027-03-31|31 mars 2027\"]}",
   "lastEarliestDateKey": "2026-11-04",
   "lastEarliestLabel": "4 novembre 2026",
-  "lastEarliestTime": "13:00-14:00",
+  "lastEarliestTime": "14:00-15:00",
   "activeTargetDateKeys": [
     "2026-11-04"
   ],
   "slots": [
     {
-      "key": "2026-11-04|13:00-14:00",
-      "date": "4 novembre 2026",
-      "time": "13:00-14:00",
-      "label": "4 novembre 2026 — 13:00-14:00"
-    },
-    {
       "key": "2026-11-04|14:00-15:00",
       "date": "4 novembre 2026",
       "time": "14:00-15:00",
       "label": "4 novembre 2026 — 14:00-15:00"
-    },
-    {
-      "key": "2027-03-31|13:00-14:00",
-      "date": "31 mars 2027",
-      "time": "13:00-14:00",
-      "label": "31 mars 2027 — 13:00-14:00"
     },
     {
       "key": "2027-03-31|14:00-15:00",
@@ -47,9 +35,9 @@
   "monthsScanned": 6,
   "consecutiveFailures": 0,
   "lastError": null,
-  "lastAvailabilityChangeAt": "2026-11-03T10:26:43.392Z",
+  "lastAvailabilityChangeAt": "2026-11-03T10:31:19.190Z",
   "heartbeatMonth": "2026-11",
   "monthlyHeartbeatAt": "2026-10-31T23:01:17.592Z",
-  "lastAttemptAt": "2026-11-03T10:26:43.392Z",
-  "lastSuccessfulScanAt": "2026-11-03T10:26:43.392Z"
+  "lastAttemptAt": "2026-11-03T10:31:19.190Z",
+  "lastSuccessfulScanAt": "2026-11-03T10:31:19.190Z"
 }
