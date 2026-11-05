@@ -1,13 +1,12 @@
 {
   "schemaVersion": 3,
   "urgentEndDate": "2027-01-31",
-  "availabilityFingerprint": "{\"s\":[\"2026-12-14|09:00-10:00|09:00-10:00|14 décembre 2026 — 09:00-10:00\",\"2026-12-16|09:00-10:00|09:00-10:00|16 décembre 2026 — 09:00-10:00\"],\"d\":[\"2026-12-14|14 décembre 2026\",\"2026-12-16|16 décembre 2026\"]}",
+  "availabilityFingerprint": "{\"s\":[\"2026-12-14|09:00-10:00|09:00-10:00|14 décembre 2026 — 09:00-10:00\"],\"d\":[\"2026-12-14|14 décembre 2026\"]}",
   "lastEarliestDateKey": "2026-12-14",
   "lastEarliestLabel": "14 décembre 2026",
   "lastEarliestTime": "09:00-10:00",
   "activeTargetDateKeys": [
-    "2026-12-14",
-    "2026-12-16"
+    "2026-12-14"
   ],
   "slots": [
     {
@@ -15,30 +14,20 @@
       "date": "14 décembre 2026",
       "time": "09:00-10:00",
       "label": "14 décembre 2026 — 09:00-10:00"
-    },
-    {
-      "key": "2026-12-16|09:00-10:00",
-      "date": "16 décembre 2026",
-      "time": "09:00-10:00",
-      "label": "16 décembre 2026 — 09:00-10:00"
     }
   ],
   "dates": [
     {
       "key": "2026-12-14",
       "label": "14 décembre 2026"
-    },
-    {
-      "key": "2026-12-16",
-      "label": "16 décembre 2026"
     }
   ],
   "monthsScanned": 6,
   "consecutiveFailures": 0,
   "lastError": null,
-  "lastAvailabilityChangeAt": "2026-11-05T01:56:18.044Z",
+  "lastAvailabilityChangeAt": "2026-11-05T02:11:36.014Z",
   "heartbeatMonth": "2026-11",
   "monthlyHeartbeatAt": "2026-10-31T23:01:17.592Z",
-  "lastAttemptAt": "2026-11-05T02:06:25.140Z",
-  "lastSuccessfulScanAt": "2026-11-05T02:06:25.140Z"
+  "lastAttemptAt": "2026-11-05T02:11:36.014Z",
+  "lastSuccessfulScanAt": "2026-11-05T02:11:36.014Z"
 }
