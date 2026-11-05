@@ -1,7 +1,7 @@
 {
   "schemaVersion": 3,
   "urgentEndDate": "2027-01-31",
-  "availabilityFingerprint": "{\"s\":[\"2026-11-24|14:00-15:00|14:00-15:00|24 novembre 2026 — 14:00-15:00\",\"2026-12-14|DATE_ONLY||14 décembre 2026\",\"2026-12-16|13:00-14:00|13:00-14:00|16 décembre 2026 — 13:00-14:00\"],\"d\":[\"2026-11-24|24 novembre 2026\",\"2026-12-14|14 décembre 2026\",\"2026-12-16|16 décembre 2026\"]}",
+  "availabilityFingerprint": "{\"s\":[\"2026-11-24|14:00-15:00|14:00-15:00|24 novembre 2026 — 14:00-15:00\",\"2026-12-14|14:00-15:00|14:00-15:00|14 décembre 2026 — 14:00-15:00\",\"2026-12-16|09:00-10:00|09:00-10:00|16 décembre 2026 — 09:00-10:00\"],\"d\":[\"2026-11-24|24 novembre 2026\",\"2026-12-14|14 décembre 2026\",\"2026-12-16|16 décembre 2026\"]}",
   "lastEarliestDateKey": "2026-11-24",
   "lastEarliestLabel": "24 novembre 2026",
   "lastEarliestTime": "14:00-15:00",
@@ -18,16 +18,16 @@
       "label": "24 novembre 2026 — 14:00-15:00"
     },
     {
-      "key": "2026-12-14|DATE_ONLY",
+      "key": "2026-12-14|14:00-15:00",
       "date": "14 décembre 2026",
-      "time": null,
-      "label": "14 décembre 2026"
+      "time": "14:00-15:00",
+      "label": "14 décembre 2026 — 14:00-15:00"
     },
     {
-      "key": "2026-12-16|13:00-14:00",
+      "key": "2026-12-16|09:00-10:00",
       "date": "16 décembre 2026",
-      "time": "13:00-14:00",
-      "label": "16 décembre 2026 — 13:00-14:00"
+      "time": "09:00-10:00",
+      "label": "16 décembre 2026 — 09:00-10:00"
     }
   ],
   "dates": [
@@ -47,9 +47,9 @@
   "monthsScanned": 6,
   "consecutiveFailures": 0,
   "lastError": null,
-  "lastAvailabilityChangeAt": "2026-11-05T00:56:45.419Z",
+  "lastAvailabilityChangeAt": "2026-11-05T01:01:19.959Z",
   "heartbeatMonth": "2026-11",
   "monthlyHeartbeatAt": "2026-10-31T23:01:17.592Z",
-  "lastAttemptAt": "2026-11-05T00:56:45.418Z",
-  "lastSuccessfulScanAt": "2026-11-05T00:56:45.418Z"
+  "lastAttemptAt": "2026-11-05T01:01:19.959Z",
+  "lastSuccessfulScanAt": "2026-11-05T01:01:19.959Z"
 }
