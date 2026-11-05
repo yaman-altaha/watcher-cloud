@@ -1,19 +1,19 @@
 {
   "schemaVersion": 3,
   "urgentEndDate": "2027-01-31",
-  "availabilityFingerprint": "{\"s\":[\"2026-12-14|09:00-10:00|09:00-10:00|14 décembre 2026 — 09:00-10:00\"],\"d\":[\"2026-12-14|14 décembre 2026\"]}",
+  "availabilityFingerprint": "{\"s\":[\"2026-12-14|DATE_ONLY||14 décembre 2026\"],\"d\":[\"2026-12-14|14 décembre 2026\"]}",
   "lastEarliestDateKey": "2026-12-14",
   "lastEarliestLabel": "14 décembre 2026",
-  "lastEarliestTime": "09:00-10:00",
+  "lastEarliestTime": null,
   "activeTargetDateKeys": [
     "2026-12-14"
   ],
   "slots": [
     {
-      "key": "2026-12-14|09:00-10:00",
+      "key": "2026-12-14|DATE_ONLY",
       "date": "14 décembre 2026",
-      "time": "09:00-10:00",
-      "label": "14 décembre 2026 — 09:00-10:00"
+      "time": null,
+      "label": "14 décembre 2026"
     }
   ],
   "dates": [
@@ -23,11 +23,11 @@
     }
   ],
   "monthsScanned": 6,
-  "consecutiveFailures": 1,
-  "lastError": "TimeoutError: page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://rendez-vous.liege.be/nationalites\", waiting until \"domcontentloaded\"\n",
-  "lastAvailabilityChangeAt": "2026-11-05T02:11:36.014Z",
+  "consecutiveFailures": 0,
+  "lastError": null,
+  "lastAvailabilityChangeAt": "2026-11-05T03:56:30.561Z",
   "heartbeatMonth": "2026-11",
   "monthlyHeartbeatAt": "2026-10-31T23:01:17.592Z",
-  "lastAttemptAt": "2026-11-05T03:54:16.516Z",
-  "lastSuccessfulScanAt": "2026-11-05T03:46:14.804Z"
+  "lastAttemptAt": "2026-11-05T03:56:30.561Z",
+  "lastSuccessfulScanAt": "2026-11-05T03:56:30.561Z"
 }
