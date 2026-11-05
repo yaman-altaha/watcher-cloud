@@ -1,8 +1,7 @@
 name: Liège Watcher Cloud
 
 on:
-  schedule:
-    - cron: "2-57/5 * * * *"
+  # Automatic five-minute scans paused after nationality appointment on 2026-11-04.
   workflow_dispatch:
     inputs:
       test_notification:
@@ -25,6 +24,8 @@ permissions:
 
 jobs:
   scan:
+    # Keep any Google Apps Script dispatches from performing scans or sending email/ntfy.
+    if: ${{ false }}
     runs-on: ubuntu-latest
     timeout-minutes: 9
     steps:
